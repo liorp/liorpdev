@@ -7,12 +7,9 @@ const App = () => (
         </header>
         <main>
             <div className="flex justify-center align-center">
-                <div className="card text-center shadow-2xl m-10 h-min">
-                    <figure className="px-10 pt-10">
-                        <img
-                            src="/favicon_milan.png"
-                            className="rounded-xl max-w-[10rem]"
-                        />
+                <div className="card text-center shadow-2xl m-10 h-min w-80 flex flex-col items-center">
+                    <figure className="px-10 pt-10 w-48">
+                        <img src="/favicon_milan.png" className="rounded-xl" />
                     </figure>
                     <div className="card-body flex-grow-0">
                         <h2 className="card-title">Blog</h2>
@@ -26,12 +23,9 @@ const App = () => (
                         </div>
                     </div>
                 </div>
-                <div className="card text-center shadow-2xl m-10  h-min">
-                    <figure className="px-10 pt-10">
-                        <img
-                            src="/favicon_blog.png"
-                            className="rounded-xl max-w-[10rem]"
-                        />
+                <div className="card text-center shadow-2xl m-10 h-min w-80 flex flex-col items-center">
+                    <figure className="px-10 pt-10 w-48">
+                        <img src="/favicon_blog.png" className="rounded-xl" />
                     </figure>
                     <div className="card-body">
                         <h2 className="card-title">Milan</h2>
