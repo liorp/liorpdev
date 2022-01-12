@@ -15,8 +15,8 @@ const App = () => (
                         />
                     </figure>
                     <div className="card-body flex-grow-0">
-                        <h2 className="card-title">Milan</h2>
-                        <p>Like wordle, but in Hebrew.</p>
+                        <h2 className="card-title">Blog</h2>
+                        <p>Here I be writing stuff. In English.</p>
                         <div className="justify-center card-actions">
                             <a href="https://blog.liorp.dev/">
                                 <button className="btn btn-outline btn-accent hover-animation">
