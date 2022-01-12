@@ -6,23 +6,7 @@ const App = () => (
             </h1>
         </header>
         <main>
-            <div className="flex justify-center align-center">
-                <div className="card text-center shadow-2xl m-10 h-min w-80 flex flex-col items-center">
-                    <figure className="px-10 pt-10 w-48">
-                        <img src="/favicon_milan.png" className="rounded-xl" />
-                    </figure>
-                    <div className="card-body flex-grow-0">
-                        <h2 className="card-title">Blog</h2>
-                        <p>Here I be writing stuff. In English.</p>
-                        <div className="justify-center card-actions">
-                            <a href="https://blog.liorp.dev/">
-                                <button className="btn btn-outline btn-accent hover-animation">
-                                    Yis
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div className="flex flex-wrap justify-center align-center">
                 <div className="card text-center shadow-2xl m-10 h-min w-80 flex flex-col items-center">
                     <figure className="px-10 pt-10 w-48">
                         <img src="/favicon_blog.png" className="rounded-xl" />
@@ -32,6 +16,22 @@ const App = () => (
                         <p>Like wordle, but in Hebrew.</p>
                         <div className="justify-center card-actions">
                             <a href="https://milan.liorp.dev/">
+                                <button className="btn btn-outline btn-accent hover-animation">
+                                    Yis
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div className="card text-center shadow-2xl m-10 h-min w-80 flex flex-col items-center">
+                    <figure className="px-10 pt-10 w-48">
+                        <img src="/favicon_milan.png" className="rounded-xl" />
+                    </figure>
+                    <div className="card-body flex-grow-0">
+                        <h2 className="card-title">Blog</h2>
+                        <p>Here I be writing stuff. In English.</p>
+                        <div className="justify-center card-actions">
+                            <a href="https://blog.liorp.dev/">
                                 <button className="btn btn-outline btn-accent hover-animation">
                                     Yis
                                 </button>
