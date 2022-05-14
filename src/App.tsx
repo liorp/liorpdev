@@ -18,28 +18,28 @@ const App = () => {
             <main>
                 <div className="carousel carousel-center rounded-box p-4 space-x-4 md:w-full md:justify-center">
                     <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <a
-                            href="https://milan.liorp.dev/"
-                            className="rounded-xl px-8 pt-10 w-32"
-                        >
-                            <img src="/favicon_milan.png" />
+                        <a href="https://milan.liorp.dev/">
+                            <img
+                                src="/favicon_milan.png"
+                                className="px-8 pt-10 w-32"
+                            />
+                            <div className="card-body">
+                                <h2 className="card-title">Milan</h2>
+                                <p>Like wordle, but in Hebrew.</p>
+                            </div>
                         </a>
-                        <div className="card-body">
-                            <h2 className="card-title">Milan</h2>
-                            <p>Like wordle, but in Hebrew.</p>
-                        </div>
                     </div>
                     <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <a
-                            href="https://blog.liorp.dev/"
-                            className="rounded-xl px-8 pt-10 w-32"
-                        >
-                            <img src="/favicon_blog.png" />
+                        <a href="https://blog.liorp.dev/">
+                            <img
+                                src="/favicon_blog.png"
+                                className="px-8 pt-10 w-32"
+                            />
+                            <div className="card-body">
+                                <h2 className="card-title">Blog</h2>
+                                <p>Here I be writing stuff. In English.</p>
+                            </div>
                         </a>
-                        <div className="card-body">
-                            <h2 className="card-title">Blog</h2>
-                            <p>Here I be writing stuff. In English.</p>
-                        </div>
                     </div>
                 </div>
                 {showDvdPlayer && (
