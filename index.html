@@ -33,7 +33,7 @@
             data-cfasync="false"
         ></script>
         <script>
-            function loadGAonConsent() {
+            (function loadGA() {
                 var ga = document.createElement('script')
                 ga.type = 'text/javascript'
                 ga.async = true
@@ -51,7 +51,7 @@
                 gtag('js', new Date())
 
                 gtag('config', 'G-VLNH4PSFML')
-            }
+            })()
         </script>
         <script
             async
