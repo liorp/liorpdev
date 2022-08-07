@@ -41,6 +41,18 @@ const App = () => {
                             </div>
                         </a>
                     </div>
+                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
+                        <a href="https://cmprsr.liorp.dev/">
+                            <img
+                                src="/favicon_cmprsr.png"
+                                className="px-8 pt-10 w-32"
+                            />
+                            <div className="card-body">
+                                <h2 className="card-title">CMPRSR</h2>
+                                <p>Compression 101.</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 {showDvdPlayer && (
                     <div className="monitor-container">
