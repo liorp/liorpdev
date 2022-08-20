@@ -53,6 +53,18 @@ const App = () => {
                             </div>
                         </a>
                     </div>
+                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
+                        <button onClick={() => klaro.show(undefined, true)}>
+                            <img
+                                src="/favicon_analytics.png"
+                                className="px-8 pt-10 w-32"
+                            />
+                            <div className="card-body">
+                                <h2 className="card-title">Analytics</h2>
+                                <p>Set your analytics preferences.</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
                 {showDvdPlayer && (
                     <div className="monitor-container">
