@@ -1,9 +1,44 @@
 import { useState } from 'react'
 import DVDLogoAnimation from 'react-dvd-player-animation'
 import { useKonami } from 'react-konami-code'
+import { AppCard, AppCardProps } from './AppCard'
 
 const HEIGHT = 400
 const WIDTH = 300
+
+const links: AppCardProps[] = [
+    {
+        link: 'https://blog.liorp.dev/',
+        favicon: '/favicon_blog.png',
+        title: 'Blog',
+        subtitle: 'Here I be writing. In English. About stuff. And things.',
+    },
+    {
+        link: 'https://milan.liorp.dev/',
+        favicon: '/favicon_milan.png',
+        title: 'Milan',
+        subtitle: 'Like wordle, but in Hebrew.',
+    },
+    {
+        link: 'https://fireplace.liorp.dev/',
+        favicon: '/favicon_fireplace.png',
+        title: 'Fireplace',
+        subtitle: 'See where you can retire right now 🍹',
+    },
+    {
+        link: 'https://cmprsr.liorp.dev/',
+        favicon: '/favicon_cmprsr.png',
+        title: 'CMPRSR',
+        subtitle: 'Compression 101.',
+    },
+    {
+        link: '#',
+        favicon: '/favicon_analytics.png',
+        title: 'Analytics',
+        subtitle: 'Set your analytics preferences.',
+        onClick: () => klaro.show(undefined, true),
+    },
+]
 
 const App = () => {
     const [showDvdPlayer, setShowDvdPlayer] = useState(false)
@@ -16,55 +51,10 @@ const App = () => {
                 </h1>
             </header>
             <main>
-                <div className="carousel carousel-center rounded-box p-4 space-x-4 md:w-full md:justify-center">
-                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <a href="https://milan.liorp.dev/">
-                            <img
-                                src="/favicon_milan.png"
-                                className="px-8 pt-10 w-32"
-                            />
-                            <div className="card-body">
-                                <h2 className="card-title">Milan</h2>
-                                <p>Like wordle, but in Hebrew.</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <a href="https://blog.liorp.dev/">
-                            <img
-                                src="/favicon_blog.png"
-                                className="px-8 pt-10 w-32"
-                            />
-                            <div className="card-body">
-                                <h2 className="card-title">Blog</h2>
-                                <p>Here I be writing stuff. In English.</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <a href="https://cmprsr.liorp.dev/">
-                            <img
-                                src="/favicon_cmprsr.png"
-                                className="px-8 pt-10 w-32"
-                            />
-                            <div className="card-body">
-                                <h2 className="card-title">CMPRSR</h2>
-                                <p>Compression 101.</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div className="card bg-secondary shadow-lg w-[95%] md:w-80 flex flex-col items-start carousel-item">
-                        <button onClick={() => klaro.show(undefined, true)}>
-                            <img
-                                src="/favicon_analytics.png"
-                                className="px-8 pt-10 w-32"
-                            />
-                            <div className="card-body">
-                                <h2 className="card-title">Analytics</h2>
-                                <p>Set your analytics preferences.</p>
-                            </div>
-                        </button>
-                    </div>
+                <div className="flex flex-wrap rounded-box p-4 gap-4 w-full justify-center">
+                    {links.map((link) => (
+                        <AppCard {...link} />
+                    ))}
                 </div>
                 {showDvdPlayer && (
                     <div className="monitor-container">
