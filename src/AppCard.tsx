@@ -16,7 +16,7 @@ export const AppCard = ({
     onClick,
 }: AppCardProps) => {
     return (
-        <div className="card bg-secondary shadow-lg w-[95%] md:w-100 flex flex-col items-start">
+        <div className="card bg-secondary shadow-lg w-1/4 xl:w-1/5 flex flex-col items-start">
             <a href={link} onClick={onClick}>
                 <img src={favicon} className="px-8 pt-6 w-32" />
                 <div className="card-body h-40">
