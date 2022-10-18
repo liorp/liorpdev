@@ -60,7 +60,7 @@ const App = () => {
                 </h1>
             </header>
             <main>
-                <div className="flex flex-wrap rounded-box p-4 gap-18 w-full justify-start">
+                <div className="flex flex-wrap rounded-box p-4 gap-8 lg:gap-10 xl:gap-18 w-full justify-center md:justify-start">
                     {links.map((link) => (
                         <AppCard key={link.title} {...link} />
                     ))}
