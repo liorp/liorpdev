@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DVDLogoAnimation from 'react-dvd-player-animation'
 import { useKonami } from 'react-konami-code'
 import { AppCard, AppCardProps } from './AppCard'
@@ -43,6 +43,15 @@ const links: AppCardProps[] = [
 const App = () => {
     const [showDvdPlayer, setShowDvdPlayer] = useState(false)
     useKonami(() => setShowDvdPlayer((v) => !v))
+
+    useEffect(() => {
+        try {
+            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        } catch (err) {
+            console.log(err)
+        }
+    }, [])
+
     return (
         <div>
             <header>
@@ -53,9 +62,19 @@ const App = () => {
             <main>
                 <div className="flex flex-wrap rounded-box p-4 gap-18 w-full justify-start">
                     {links.map((link) => (
-                        <AppCard {...link} />
+                        <AppCard key={link.title} {...link} />
                     ))}
                 </div>
+                <ins
+                    className="adsbygoogle w-1/4 xl:w-1/6 mx-auto"
+                    style={{
+                        display: 'block',
+                    }}
+                    data-ad-client="ca-pub-4529248472834919"
+                    data-ad-slot="6061011972"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"
+                ></ins>
                 {showDvdPlayer && (
                     <div className="monitor-container">
                         <div className="monitor">
