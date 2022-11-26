@@ -11,13 +11,13 @@ const links: AppCardProps[] = [
         link: 'https://blog.liorp.dev/',
         favicon: '/favicon_blog.png',
         title: 'Blog',
-        subtitle: 'Here I be writing. In English. About stuff. And things.',
+        subtitle: 'Writing stuff',
     },
     {
         link: 'https://milan.liorp.dev/',
         favicon: '/favicon_milan.png',
         title: 'Milan',
-        subtitle: 'Like wordle, but in Hebrew.',
+        subtitle: 'Like wordle, but in Hebrew',
     },
     {
         link: 'https://fireplace.liorp.dev/',
@@ -29,13 +29,13 @@ const links: AppCardProps[] = [
         link: 'https://cmprsr.liorp.dev/',
         favicon: '/favicon_cmprsr.png',
         title: 'CMPRSR',
-        subtitle: 'Compression 101.',
+        subtitle: 'Compression 101',
     },
     {
         link: '#',
         favicon: '/favicon_analytics.png',
         title: 'Analytics',
-        subtitle: 'Set your analytics preferences.',
+        subtitle: 'Set your analytics preferences',
         onClick: () => klaro.show(undefined, true),
     },
 ]
