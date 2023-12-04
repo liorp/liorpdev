@@ -74,7 +74,7 @@ const App = () => {
             </header>
             <main>
                 <div>
-                    <span className="block max-w-lg m-auto">
+                    <span className="block max-w-lg m-auto p-2">
                         Hey there! I'm a creative R&D enthusiast with a knack
                         for Python and TypeScript magic, system upgrades, and
                         steering projects like a champ. I love diving into the
