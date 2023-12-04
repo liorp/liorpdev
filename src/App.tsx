@@ -54,12 +54,36 @@ const App = () => {
 
     return (
         <div>
-            <header>
+            <header className="flex flex-col items-center">
                 <h1 className="m-auto mb-1 min-h-fit leading-loose w-max bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-gradient text-4xl font-bold transition transform hover:-rotate-6">
                     Lior
                 </h1>
+                <img
+                    style={{
+                        borderRadius: '50%',
+                        borderWidth: '5px',
+                        borderColor: 'black',
+                        marginBottom: '1rem',
+                    }}
+                    className="shadow-lg"
+                    src="profile.webp"
+                    width="200"
+                    height="200"
+                    alt="Me"
+                />
             </header>
             <main>
+                <div>
+                    <span className="block max-w-lg m-auto">
+                        Hey there! I'm a creative R&D enthusiast with a knack
+                        for Python and TypeScript magic, system upgrades, and
+                        steering projects like a champ. I love diving into the
+                        world of microservices and playing my part in open
+                        source projects. Whether it's optimizing systems,
+                        leading projects, or crafting top-notch applications,
+                        I'm all in! ✨
+                    </span>
+                </div>
                 <div className="flex flex-wrap rounded-box p-4 gap-8 lg:gap-10 xl:gap-18 w-full justify-center md:justify-start">
                     {links.map((link) => (
                         <AppCard key={link.title} {...link} />

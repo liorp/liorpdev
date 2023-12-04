@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="cupcake">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" href="/src/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>The Gateway</title>
-        <meta property="og:title" content="Lior" />
-        <meta name="description" content="Lior's home" />
-        <meta property="og:url" content="https://liorp.dev/" />
-        <meta property="og:description" content="Lior's home" />
-        <meta property="og:image" content="/favicon.png" />
-        <meta property="og:locale" content="he_IL" />
 
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossorigin="anonymous"
-        />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-        <script
-            defer
-            type="application/javascript"
-            src="/klaroConfig.js"
-        ></script>
-        <script
-            defer
-            data-config="klaroConfig"
-            type="application/javascript"
-            src="https://cdn.kiprotect.com/klaro/v0.7.9/klaro.js"
-        ></script>
-        <script
-            type="text/plain"
-            data-type="application/javascript"
-            data-name="googleAnalytics"
-        >
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/src/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Gateway</title>
+    <meta property="og:title" content="Lior" />
+    <meta name="description" content="Lior's home" />
+    <meta property="og:url" content="https://liorp.dev/" />
+    <meta property="og:description" content="Lior's home" />
+    <meta property="og:image" content="/favicon.png" />
+    <meta property="og:locale" content="he_IL" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script defer type="application/javascript" src="/klaroConfig.js"></script>
+    <script defer data-config="klaroConfig" type="application/javascript"
+        src="https://cdn.kiprotect.com/klaro/v0.7.9/klaro.js"></script>
+    <script type="text/plain" data-type="application/javascript" data-name="googleAnalytics">
             (function loadGA() {
                 var ga = document.createElement('script')
                 ga.type = 'text/javascript'
@@ -59,14 +41,27 @@
                 gtag('config', 'G-VLNH4PSFML')
             })()
         </script>
-        <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4529248472834919"
-            crossorigin="anonymous"
-        ></script>
-    </head>
-    <body>
-        <div id="root"></div>
-        <script type="module" src="/src/main.tsx"></script>
-    </body>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4529248472834919"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <div id="bthn" lang="en"></div>
+    <script>
+        (function () {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://bringthemhomenow.net/1.0.8/hostages-ticker.js";
+            script.setAttribute(
+                "integrity",
+                "sha384-jQVW0E+wZK5Rv1fyN+b89m7cYY8txH4s3uShzHf1T51hdBTPo7yKL6Yizgr+Gp8C"
+            );
+            script.setAttribute("crossorigin", "anonymous");
+            document.getElementsByTagName("head")[0].appendChild(script);
+        })();
+    </script>
+</body>
+
 </html>
