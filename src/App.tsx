@@ -20,6 +20,12 @@ const links: AppCardProps[] = [
         subtitle: 'Like wordle, but in Hebrew',
     },
     {
+        link: 'https://hzi.liorp.dev/',
+        favicon: '/favicon_hzi.png',
+        title: 'HZI',
+        subtitle: 'Cheaper electricity for your home',
+    },
+    {
         link: 'https://fireplace.liorp.dev/',
         favicon: '/favicon_fireplace.png',
         title: 'Fireplace',
