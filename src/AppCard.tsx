@@ -15,15 +15,26 @@ export const AppCard = ({
     subtitle,
     onClick,
 }: AppCardProps) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (onClick) onClick()
+        window.open(link, '_blank', 'noopener,noreferrer')
+    }
     return (
-        <div className="card bg-secondary shadow-lg w-2/3 md:w-1/4 xl:w-1/6 flex flex-col items-start">
-            <a href={link} target="_blank" onClick={onClick}>
-                <img src={favicon} className="px-8 pt-6 w-32" />
-                <div className="card-body h-40">
-                    <h2 className="card-title">{title}</h2>
-                    <p>{subtitle}</p>
-                </div>
-            </a>
-        </div>
+        <button
+            type="button"
+            className="card bg-secondary shadow-lg w-2/3 md:w-1/4 xl:w-1/6 flex flex-col items-start text-left cursor-pointer focus:outline-none"
+            onClick={handleClick}
+            tabIndex={0}
+        >
+            <img
+                src={favicon}
+                className="px-8 pt-6 w-32"
+                alt={title + ' favicon'}
+            />
+            <div className="card-body h-40">
+                <h2 className="card-title">{title}</h2>
+                <p>{subtitle}</p>
+            </div>
+        </button>
     )
 }
