@@ -95,7 +95,7 @@ const App = () => {
                         <AppCard key={link.title} {...link} />
                     ))}
                 </div>
-                <ins
+                {/* <ins
                     className="adsbygoogle w-1/4 xl:w-1/6 mx-auto"
                     style={{
                         display: 'block',
@@ -104,7 +104,7 @@ const App = () => {
                     data-ad-slot="6061011972"
                     data-ad-format="auto"
                     data-full-width-responsive="true"
-                ></ins>
+                ></ins> */}
                 {showDvdPlayer && (
                     <div className="monitor-container">
                         <div className="monitor">
