@@ -1,5 +1,5 @@
 export type AppCardProps = {
-	link: string;
+	link?: string;
 	favicon: string;
 	title: string;
 	subtitle: string;

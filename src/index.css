@@ -72,7 +72,9 @@ body {
 	background-color: #d297b0;
 	border-radius: 14px;
 	box-shadow: 0 10px 20px rgba(74, 12, 41, 0.16);
-	transition: transform 200ms ease, box-shadow 200ms ease;
+	transition:
+		transform 200ms ease,
+		box-shadow 200ms ease;
 	height: 100%;
 }
 

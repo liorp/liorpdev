@@ -1,6 +1,6 @@
 {
-    "editor.quickSuggestions": {
-        "strings": "on"
-    },
-    "editor.defaultFormatter": "biomejs.biome"
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
+	"editor.defaultFormatter": "biomejs.biome"
 }

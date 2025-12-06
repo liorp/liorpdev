@@ -38,7 +38,6 @@ const links: AppCardProps[] = [
 		subtitle: "Compression 101",
 	},
 	{
-		link: "#",
 		favicon: "/favicon_analytics.png",
 		title: "Analytics",
 		subtitle: "Set your analytics preferences",
