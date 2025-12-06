@@ -1,7 +1,7 @@
-export {}
+export {};
 
 declare global {
-    interface Window {
-        adsbygoogle: any // 👈️ turn off type checking
-    }
+	interface Window {
+		adsbygoogle: unknown[];
+	}
 }

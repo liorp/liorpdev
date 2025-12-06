@@ -1,3 +1,3 @@
-declare module klaro {
-    function show(config: any, modal: boolean): void
+declare namespace klaro {
+	function show(config: unknown, modal: boolean): void;
 }
