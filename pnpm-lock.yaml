@@ -14,9 +14,6 @@ dependencies:
   react-dvd-player-animation:
     specifier: ^1.0.4
     version: 1.0.4(react@19.2.1)
-  react-konami-code:
-    specifier: ^2.3.0
-    version: 2.3.0(react-dom@19.2.1)(react@19.2.1)
 
 devDependencies:
   '@biomejs/biome':
@@ -1379,14 +1376,6 @@ packages:
       source-map-js: 1.2.1
     dev: true
 
-  /prop-types@15.8.1:
-    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react-is: 16.13.1
-    dev: false
-
   /react-dom@19.2.1(react@19.2.1):
     resolution: {integrity: sha512-ibrK8llX2a4eOskq1mXKu/TGZj9qzomO+sNfO98M6d9zIPOEhlBkMkBUBLd1vgS0gQsLDBzA+8jJBVXDnfHmJg==}
     peerDependencies:
@@ -1402,21 +1391,6 @@ packages:
       react: '>=16.14.0'
     dependencies:
       react: 19.2.1
-    dev: false
-
-  /react-is@16.13.1:
-    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: false
-
-  /react-konami-code@2.3.0(react-dom@19.2.1)(react@19.2.1):
-    resolution: {integrity: sha512-9x90HnzstiMXs2kFS9cYsb5a+ojKEB/iC24uzNKCoE9znorLJwUcy98tjsiW2i5AHB05GuqIMTzV5RaDpVSThw==}
-    peerDependencies:
-      react: '>= 16.8.0'
-      react-dom: '>= 16.8.0'
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
     dev: false
 
   /react-refresh@0.18.0:

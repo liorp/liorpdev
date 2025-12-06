@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DVDLogoAnimation from "react-dvd-player-animation";
-import { useKonami } from "react-konami-code";
 import { AppCard, type AppCardProps } from "./AppCard";
+import { useKonami } from "./useKonami";
 
 const HEIGHT = 400;
 const WIDTH = 300;

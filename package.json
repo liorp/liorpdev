@@ -12,8 +12,7 @@
 	"dependencies": {
 		"react": "^19.2.1",
 		"react-dom": "^19.2.1",
-		"react-dvd-player-animation": "^1.0.4",
-		"react-konami-code": "^2.3.0"
+		"react-dvd-player-animation": "^1.0.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.8",
@@ -21,7 +20,7 @@
 		"@types/react": "^19.2.7",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^5.1.1",
-		"daisyui": "^4.12.23",
+		"daisyui": "^5.5.8",
 		"tailwindcss": "^4.1.7",
 		"typescript": "^5.9.3",
 		"vite": "^7.2.6"
