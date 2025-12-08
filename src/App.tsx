@@ -11,36 +11,36 @@ const links: AppCardProps[] = [
 		link: "https://blog.liorp.dev/",
 		favicon: "/favicon_blog.png",
 		title: "Blog",
-		subtitle: "Writing stuff",
+		subtitle: "Tech & AI thoughts",
 	},
 	{
 		link: "https://milan.liorp.dev/",
 		favicon: "/favicon_milan.png",
 		title: "Milan",
-		subtitle: "Like wordle, but in Hebrew",
+		subtitle: "Hebrew word game",
 	},
 	{
 		link: "https://hzi.liorp.dev/",
 		favicon: "/favicon_hzi.png",
 		title: "HZI",
-		subtitle: "Cheaper electricity for your home",
+		subtitle: "Smart electricity calculator",
 	},
 	{
 		link: "https://fireplace.liorp.dev/",
 		favicon: "/favicon_fireplace.png",
 		title: "Fireplace",
-		subtitle: "See where you can retire right now 🍹",
+		subtitle: "Retirement location finder",
 	},
 	{
 		link: "https://cmprsr.liorp.dev/",
 		favicon: "/favicon_cmprsr.png",
 		title: "CMPRSR",
-		subtitle: "Compression 101",
+		subtitle: "Learn compression algorithms",
 	},
 	{
 		favicon: "/favicon_analytics.png",
 		title: "Analytics",
-		subtitle: "Set your analytics preferences",
+		subtitle: "Privacy preferences",
 		onClick: () => klaro.show(undefined, true),
 	},
 ];
@@ -59,34 +59,30 @@ const App = () => {
 	}, []);
 
 	return (
-		<div className="min-h-screen bg-[#fbf7f4] text-[#2d1a21]">
-			<header className="flex flex-col items-center pt-10">
-				<h1 className="m-auto mb-1 min-h-fit leading-loose w-max bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 text-gradient text-4xl font-bold transition transform hover:-rotate-6">
+		<div className="min-h-screen bg-[#0a0a0f] text-[#e4e4e7]">
+			<header className="flex flex-col items-center pt-16 pb-8">
+				<img
+					className="rounded-full shadow-[0_0_40px_rgba(139,92,246,0.3)] mb-6"
+					src="profile.webp"
+					width="140"
+					height="140"
+					alt="Lior"
+				/>
+				<h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-violet-400 to-cyan-400 text-gradient mb-2">
 					Lior
 				</h1>
-				<img
-					style={{
-						borderRadius: "50%",
-						borderWidth: "5px",
-						borderColor: "black",
-						marginBottom: "1rem",
-					}}
-					className="shadow-lg"
-					src="profile.webp"
-					width="200"
-					height="200"
-					alt="Me"
-				/>
+				<p className="text-lg text-[#a1a1aa] font-medium tracking-wide">
+					Software Engineer / AI
+				</p>
 			</header>
-			<main className="max-w-[1400px] mx-auto px-6 pb-16">
-				<div className="mt-2">
-					<span className="block max-w-lg m-auto p-2">
-						Hey there! I'm a creative R&D enthusiast with a knack for Python and
-						TypeScript magic, system upgrades, and steering projects like a
-						champ. I love diving into the world of microservices and playing my
-						part in open source projects. Whether it's optimizing systems,
-						leading projects, or crafting top-notch applications, I'm all in! ✨
-					</span>
+			<main className="max-w-[1000px] mx-auto px-6 pb-16">
+				<div className="mb-12">
+					<p className="block max-w-xl mx-auto text-center text-[#a1a1aa] leading-relaxed">
+						Building at the intersection of AI and software engineering.<br/>
+						I specialize in Python, TypeScript, and scalable systems —
+						from microservices architecture to ML pipelines.
+						Open source contributor.
+					</p>
 				</div>
 				<div className="app-grid mt-12">
 					{links.map((link) => (
