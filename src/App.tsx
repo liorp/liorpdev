@@ -72,14 +72,14 @@ const App = () => {
 					Lior
 				</h1>
 				<p className="text-lg text-[#a1a1aa] font-medium tracking-wide">
-					Software Engineer / AI
+					Software Engineer / AI Agents Manager
 				</p>
 			</header>
 			<main className="max-w-[1000px] mx-auto px-6 pb-16">
 				<div className="mb-12">
 					<p className="block max-w-xl mx-auto text-center text-[#a1a1aa] leading-relaxed">
 						Building at the intersection of AI and software engineering.<br/>
-						I specialize in Python, TypeScript, and scalable systems —
+						I specialize in Python, TypeScript, and scalable systems -
 						from microservices architecture to ML pipelines.
 						Open source contributor.
 					</p>
