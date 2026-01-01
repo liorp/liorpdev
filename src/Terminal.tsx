@@ -36,17 +36,23 @@ export const Prompt = () => (
 type CommandLineProps = {
   command: string;
   delay?: number;
+  typingDelay?: number; // delay before typing starts (after prompt appears)
   typingSpeed?: number;
+  cursorUntil?: number; // absolute time (from mount) when cursor should hide
 };
 
 export const CommandLine = ({
   command,
   delay = 0,
+  typingDelay = 0,
   typingSpeed = DEFAULT_TYPING_SPEED,
+  cursorUntil,
 }: CommandLineProps) => {
   const [visible, setVisible] = useState(delay === 0);
   const [displayedCommand, setDisplayedCommand] = useState("");
-  const [typingDone, setTypingDone] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
+  const [typingStarted, setTypingStarted] = useState(typingDelay === 0);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     if (delay > 0) {
@@ -57,23 +63,41 @@ export const CommandLine = ({
 
   useEffect(() => {
     if (!visible) return;
+    // Show cursor immediately when prompt appears
+    setShowCursor(true);
+    if (typingDelay > 0) {
+      const timer = setTimeout(() => setTypingStarted(true), typingDelay);
+      return () => clearTimeout(timer);
+    }
+  }, [visible, typingDelay]);
+
+  // Hide cursor at cursorUntil time (when next element appears)
+  useEffect(() => {
+    if (cursorUntil === undefined) return;
+    const timer = setTimeout(() => setShowCursor(false), cursorUntil);
+    return () => clearTimeout(timer);
+  }, [cursorUntil]);
+
+  useEffect(() => {
+    if (!visible || !typingStarted) return;
 
     let index = 0;
     setDisplayedCommand("");
-    setTypingDone(false);
+    setShowCursor(true);
+    setIsTyping(true);
 
     const interval = setInterval(() => {
       if (index < command.length) {
         index++;
         setDisplayedCommand(command.slice(0, index));
       } else {
-        setTypingDone(true);
         clearInterval(interval);
+        setIsTyping(false);
       }
     }, typingSpeed);
 
     return () => clearInterval(interval);
-  }, [visible, command, typingSpeed]);
+  }, [visible, typingStarted, command, typingSpeed]);
 
   if (!visible) return null;
 
@@ -81,7 +105,7 @@ export const CommandLine = ({
     <div className="mb-1">
       <Prompt />
       <span className="text-[#e4e4e7]">{displayedCommand}</span>
-      {!typingDone && <span className="cursor" />}
+      {showCursor && <span className={isTyping ? "cursor cursor-solid" : "cursor"} />}
     </div>
   );
 };
