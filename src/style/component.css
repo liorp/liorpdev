@@ -165,3 +165,24 @@
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   animation: none !important;
 }
+
+@media (max-width: 768px) {
+  .ascii-art {
+    font-size: 6px;
+  }
+
+  .project-entry {
+    padding: 10px 12px;
+  }
+
+  .connect-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media print {
+  .matrix-bg {
+    display: none;
+  }
+}

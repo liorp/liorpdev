@@ -206,3 +206,23 @@
   margin: 0;
   border: none;
 }
+
+@media (max-width: 768px) {
+  .terminal-window {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .terminal-body {
+    padding: 16px;
+  }
+}
+
+@media print {
+  .terminal-container::before,
+  .terminal-container::after {
+    display: none;
+  }
+}

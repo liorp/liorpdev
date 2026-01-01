@@ -54,3 +54,10 @@ a:hover {
   color: var(--term-green);
   text-shadow: 0 0 10px var(--term-green-glow);
 }
+
+@media (max-width: 768px) {
+  html,
+  body {
+    font-size: 13px;
+  }
+}
