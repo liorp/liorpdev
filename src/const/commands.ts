@@ -1,0 +1,18 @@
+export const KNOWN_COMMANDS = [
+  "help",
+  "clear",
+  "whoami",
+  "pwd",
+  "ls",
+  "cat",
+  "echo",
+  "date",
+  "uname",
+  "history",
+  "neofetch",
+  "about",
+  "skills",
+  "projects",
+  "contact",
+  "connect",
+];

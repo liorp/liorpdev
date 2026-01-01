@@ -1,0 +1,26 @@
+@media (max-width: 768px) {
+  html,
+  body {
+    font-size: 13px;
+  }
+
+  .ascii-art {
+    font-size: 6px;
+  }
+
+  .terminal-body {
+    padding: 16px;
+  }
+
+  .project-entry {
+    padding: 10px 12px;
+  }
+}
+
+@media print {
+  .terminal-container::before,
+  .terminal-container::after,
+  .matrix-bg {
+    display: none;
+  }
+}

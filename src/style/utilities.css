@@ -1,0 +1,55 @@
+@layer utilities {
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .terminal-glow {
+    text-shadow:
+      0 0 5px var(--term-green-glow),
+      0 0 10px var(--term-green-glow),
+      0 0 20px var(--term-green-glow),
+      0 0 40px var(--term-green-glow);
+  }
+
+  .terminal-glow-amber {
+    text-shadow:
+      0 0 5px var(--term-amber-glow),
+      0 0 10px var(--term-amber-glow),
+      0 0 20px var(--term-amber-glow);
+  }
+
+  .crt-flicker {
+    animation: crt-flicker 0.15s infinite;
+  }
+
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .crt-curve {
+    box-shadow:
+      inset 0 0 100px rgba(0, 0, 0, 0.5),
+      inset 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: var(--crt-curve);
+  }
+}
