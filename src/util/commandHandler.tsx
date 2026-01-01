@@ -162,7 +162,7 @@ export const getCommandOutput = (cmd: string): ReactNode => {
     trimmed === "ls -la connect/"
   ) {
     return (
-      <div className="flex gap-6 mt-1">
+      <div className="flex gap-6 mt-1 connect-links">
         <a
           href="https://github.com/liorpdev"
           target="_blank"

@@ -8,12 +8,24 @@
     font-size: 6px;
   }
 
+  .terminal-window {
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
   .terminal-body {
     padding: 16px;
   }
 
   .project-entry {
     padding: 10px 12px;
+  }
+
+  .connect-links {
+    flex-direction: column;
+    gap: 8px;
   }
 }
 

@@ -352,7 +352,7 @@ const App = () => {
               />
 
               <TerminalLine delay={TIMING.connectOutput}>
-                <div className="command-output flex gap-6">
+                <div className="command-output flex gap-6 connect-links">
                   {socialLinks.map((link) => (
                     <a
                       key={link.name}
