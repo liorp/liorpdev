@@ -2,10 +2,10 @@
 	"name": "liorpdev",
 	"version": "1.0.0",
 	"scripts": {
-		"start": "vite",
-		"dev": "vite",
-		"build": "tsc && vite build",
-		"preview": "vite preview",
+		"start": "bun --bun vite",
+		"dev": "bun --bun vite",
+		"build": "bun --bun tsc && bun --bun vite build",
+		"preview": "bun --bun vite preview",
 		"check": "biome check .",
 		"check:fix": "biome check --write ."
 	},
