@@ -66,6 +66,115 @@ const useDraggable = (isMaximized: boolean) => {
   return { position, isDragging, handleMouseDown, resetPosition };
 };
 
+// Custom hook for resizable window
+const useResizable = (minWidth = 400, minHeight = 300) => {
+  const [size, setSize] = useState<{ width: number | null; height: number | null }>({ width: null, height: null });
+  const [isResizing, setIsResizing] = useState(false);
+  const resizeRef = useRef<{ edge: string; startX: number; startY: number; startWidth: number; startHeight: number } | null>(null);
+
+  const handleResizeStart = useCallback((edge: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const target = (e.target as HTMLElement).closest('.terminal-window') as HTMLElement;
+    if (!target) return;
+
+    setIsResizing(true);
+    resizeRef.current = {
+      edge,
+      startX: e.clientX,
+      startY: e.clientY,
+      startWidth: target.offsetWidth,
+      startHeight: target.offsetHeight,
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing || !resizeRef.current) return;
+
+      const { edge, startX, startY, startWidth, startHeight } = resizeRef.current;
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+
+      let newWidth = startWidth;
+      let newHeight = startHeight;
+
+      if (edge.includes('e')) newWidth = Math.max(minWidth, startWidth + deltaX);
+      if (edge.includes('w')) newWidth = Math.max(minWidth, startWidth - deltaX);
+      if (edge.includes('s')) newHeight = Math.max(minHeight, startHeight + deltaY);
+      if (edge.includes('n')) newHeight = Math.max(minHeight, startHeight - deltaY);
+
+      setSize({ width: newWidth, height: newHeight });
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      resizeRef.current = null;
+    };
+
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing, minWidth, minHeight]);
+
+  const resetSize = useCallback(() => {
+    setSize({ width: null, height: null });
+  }, []);
+
+  return { size, isResizing, handleResizeStart, resetSize };
+};
+
+// Custom hook for terminal size calculation
+const useTerminalSize = (terminalRef: React.RefObject<HTMLElement | null>, isMaximized: boolean, customSize: { width: number | null; height: number | null }) => {
+  const [terminalSize, setTerminalSize] = useState({ cols: 80, rows: 24 });
+  const charWidth = 8.4; // Approximate width of monospace character at 14px
+  const lineHeight = 22.4; // Line height at 14px font
+
+  useEffect(() => {
+    const calculateSize = () => {
+      if (!terminalRef.current) return;
+
+      const body = terminalRef.current.querySelector('.terminal-body');
+      if (!body) return;
+
+      const rect = body.getBoundingClientRect();
+      const padding = 48; // 24px padding on each side
+      const availableWidth = rect.width - padding;
+      const availableHeight = rect.height - padding;
+
+      const cols = Math.floor(availableWidth / charWidth);
+      const rows = Math.floor(availableHeight / lineHeight);
+
+      setTerminalSize({
+        cols: Math.max(40, cols),
+        rows: Math.max(10, rows),
+      });
+    };
+
+    calculateSize();
+
+    const observer = new ResizeObserver(calculateSize);
+    if (terminalRef.current) {
+      observer.observe(terminalRef.current);
+    }
+
+    window.addEventListener("resize", calculateSize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", calculateSize);
+    };
+  }, [terminalRef, isMaximized, customSize]);
+
+  return terminalSize;
+};
+
 declare global {
   interface Window {
     klaro: { show: (arg1: undefined, arg2: boolean) => void };
@@ -176,23 +285,42 @@ const CMD_NEOFETCH = "neofetch --ascii";
 const CMD_CAT = "cat about.txt";
 const CMD_SKILLS = "ls -la ./skills/";
 const CMD_PROJECTS = "ls -la ./projects/";
+const CMD_CONNECT = "ls -la ./connect/";
+
+const SECTION_DELAY = 800; // ms pause before typing starts (prompt visible, cursor blinking)
+const CMD_OUTPUT_DELAY = 1500; // ms pause after command finishes before output
+
+// Build timing sequentially for clarity
+const t1 = 100; // neofetch starts typing
+const t2 = t1 + getCommandDuration(CMD_NEOFETCH) + CMD_OUTPUT_DELAY; // neofetch output + cat prompt appears
+const t3 = t2 + SECTION_DELAY; // cat starts typing
+const t4 = t3 + getCommandDuration(CMD_CAT) + CMD_OUTPUT_DELAY; // cat output + skills prompt appears
+const t5 = t4 + SECTION_DELAY; // skills starts typing
+const t6 = t5 + getCommandDuration(CMD_SKILLS) + CMD_OUTPUT_DELAY; // skills output + projects prompt appears
+const t7 = t6 + SECTION_DELAY; // projects starts typing
+const t8 = t7 + getCommandDuration(CMD_PROJECTS) + CMD_OUTPUT_DELAY; // projects output
+const t9 = t8 + SECTION_DELAY; // connect section
 
 const TIMING = {
   lastLogin: 0,
-  neofetchCmd: 100,
-  neofetchOutput: 100 + getCommandDuration(CMD_NEOFETCH),
-  catCmd: 100 + getCommandDuration(CMD_NEOFETCH) + 100,
-  catOutput: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT),
-  skillsHeader: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100,
-  skillsCmd: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100,
-  skillsOutput: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS),
-  projectsHeader: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100,
-  projectsCmd: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100,
-  projectsOutput: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100 + getCommandDuration(CMD_PROJECTS),
-  connectHeader: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100 + getCommandDuration(CMD_PROJECTS) + 350,
-  connectOutput: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100 + getCommandDuration(CMD_PROJECTS) + 400,
-  hint: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100 + getCommandDuration(CMD_PROJECTS) + 500,
-  cursor: 100 + getCommandDuration(CMD_NEOFETCH) + 100 + getCommandDuration(CMD_CAT) + 100 + getCommandDuration(CMD_SKILLS) + 100 + getCommandDuration(CMD_PROJECTS) + 600,
+  neofetchCmd: t1,
+  neofetchTypingDelay: 0,
+  neofetchAscii: t2,
+  neofetchMeta: t2 + 400, // metadata appears 400ms after ASCII
+  catCmd: t2 + 400, // prompt appears with metadata (not ASCII)
+  catTypingDelay: SECTION_DELAY,
+  catOutput: t4,
+  skillsCmd: t4, // prompt appears with cat output
+  skillsTypingDelay: SECTION_DELAY,
+  skillsOutput: t6,
+  projectsCmd: t6, // prompt appears with skills output
+  projectsTypingDelay: SECTION_DELAY,
+  projectsOutput: t8,
+  connectCmd: t8, // prompt appears with projects output
+  connectTypingDelay: SECTION_DELAY,
+  connectOutput: t9 + getCommandDuration(CMD_CONNECT) + CMD_OUTPUT_DELAY,
+  hint: t9 + getCommandDuration(CMD_CONNECT) + CMD_OUTPUT_DELAY + 100,
+  cursor: t9 + getCommandDuration(CMD_CONNECT) + CMD_OUTPUT_DELAY + 200,
 };
 
 const App = () => {
@@ -201,8 +329,52 @@ const App = () => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
 
   const { position, isDragging, handleMouseDown, resetPosition } = useDraggable(isMaximized);
+
+  // Auto-scroll terminal body when new content appears
+  useEffect(() => {
+    if (!terminalBodyRef.current || animationComplete) return;
+
+    const scrollToBottom = () => {
+      if (terminalBodyRef.current) {
+        terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+      }
+    };
+
+    const observer = new MutationObserver(scrollToBottom);
+    observer.observe(terminalBodyRef.current, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect();
+  }, [animationComplete]);
+  const { size, isResizing, handleResizeStart, resetSize } = useResizable();
+  const terminalSize = useTerminalSize(terminalRef, isMaximized, size);
+
+  const handleTerminalClick = () => {
+    if (animationComplete && inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && userInput.trim()) {
+      setCommandHistory((prev) => [...prev, userInput]);
+      setUserInput("");
+    }
+  };
 
   useKonami(() => setShowEasterEgg((v) => !v));
 
@@ -219,7 +391,12 @@ const App = () => {
     setIsMaximized((v) => !v);
     if (!isMaximized) {
       resetPosition();
+      resetSize();
     }
+  };
+
+  const handleHeaderDoubleClick = () => {
+    handleMaximize();
   };
 
   useEffect(() => {
@@ -252,23 +429,41 @@ const App = () => {
     <div className="terminal-container crt-flicker">
       <MatrixRain />
 
-      <div className="max-w-4xl mx-auto p-4 md:p-8 relative z-10">
+      <div className="h-full w-full flex flex-col items-center justify-center relative z-10">
         {/* Terminal Window */}
         <div
-          className={`terminal-window ${isMaximized ? "terminal-maximized" : ""} ${isHidden ? "terminal-hidden" : ""}`}
+          ref={terminalRef}
+          className={`terminal-window ${isMaximized ? "terminal-maximized" : ""} ${isHidden ? "terminal-hidden" : ""} ${isResizing ? "terminal-resizing" : ""}`}
           style={
             !isMaximized
               ? {
                   transform: `translate(${position.x}px, ${position.y}px)`,
-                  transition: isDragging ? "none" : "transform 0.1s ease-out",
+                  transition: isDragging || isResizing ? "none" : "transform 0.1s ease-out",
+                  ...(size.width && { width: size.width }),
+                  ...(size.height && { height: size.height }),
                 }
               : undefined
           }
         >
+          {/* Resize Handles */}
+          {!isMaximized && (
+            <>
+              <div className="resize-handle resize-n" onMouseDown={(e) => handleResizeStart('n', e)} />
+              <div className="resize-handle resize-s" onMouseDown={(e) => handleResizeStart('s', e)} />
+              <div className="resize-handle resize-e" onMouseDown={(e) => handleResizeStart('e', e)} />
+              <div className="resize-handle resize-w" onMouseDown={(e) => handleResizeStart('w', e)} />
+              <div className="resize-handle resize-ne" onMouseDown={(e) => handleResizeStart('ne', e)} />
+              <div className="resize-handle resize-nw" onMouseDown={(e) => handleResizeStart('nw', e)} />
+              <div className="resize-handle resize-se" onMouseDown={(e) => handleResizeStart('se', e)} />
+              <div className="resize-handle resize-sw" onMouseDown={(e) => handleResizeStart('sw', e)} />
+            </>
+          )}
+
           {/* Header Bar */}
           <div
             className={`terminal-header ${!isMaximized ? "terminal-draggable" : ""}`}
             onMouseDown={handleMouseDown}
+            onDoubleClick={handleHeaderDoubleClick}
           >
             <button
               type="button"
@@ -288,11 +483,15 @@ const App = () => {
               onClick={handleMaximize}
               aria-label="Maximize"
             />
-            <div className="terminal-title">lior@dev:~ -- bash -- 80x24</div>
+            <div className="terminal-title">lior@dev:~ -- bash -- {terminalSize.cols}x{terminalSize.rows}</div>
           </div>
 
           {/* Terminal Body */}
-          <div className={`terminal-body ${isMinimized ? "terminal-body-minimized" : ""}`}>
+          <div
+            ref={terminalBodyRef}
+            className={`terminal-body ${isMinimized ? "terminal-body-minimized" : ""}`}
+            onClick={handleTerminalClick}
+          >
             {/* Boot Sequence */}
             <div className="mb-6">
               <TerminalLine delay={TIMING.lastLogin}>
@@ -301,15 +500,15 @@ const App = () => {
                 </span>
               </TerminalLine>
 
-              <CommandLine command={CMD_NEOFETCH} delay={TIMING.neofetchCmd} typingSpeed={TYPING_SPEED} />
+              <CommandLine command={CMD_NEOFETCH} delay={TIMING.neofetchCmd} typingDelay={TIMING.neofetchTypingDelay} typingSpeed={TYPING_SPEED} cursorUntil={TIMING.neofetchAscii} />
 
-              <TerminalLine delay={TIMING.neofetchOutput}>
+              <TerminalLine delay={TIMING.neofetchAscii}>
                 <div className="mt-4">
                   <AsciiArt />
                 </div>
               </TerminalLine>
 
-              <TerminalLine delay={TIMING.neofetchOutput}>
+              <TerminalLine delay={TIMING.neofetchMeta}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1 mt-4 text-sm">
                   <div>
                     <span className="text-[#ffb000]">OS:</span>{" "}
@@ -343,25 +542,22 @@ const App = () => {
             </div>
 
             {/* About Section */}
-            <CommandLine command={CMD_CAT} delay={TIMING.catCmd} typingSpeed={TYPING_SPEED} />
+            <CommandLine command={CMD_CAT} delay={TIMING.catCmd} typingDelay={TIMING.catTypingDelay} typingSpeed={TYPING_SPEED} cursorUntil={TIMING.catOutput} />
 
             <TerminalLine delay={TIMING.catOutput}>
-              <div className="command-output text-[#888] leading-relaxed max-w-2xl">
+              <div className="command-output text-[#888] leading-relaxed">
                 Building at the intersection of{" "}
                 <span className="text-[#00ff41]">AI</span> and{" "}
                 <span className="text-[#00ff41]">software engineering</span>.
                 <br />
-                I specialize in scalable systems - from microservices
-                architecture to ML pipelines.
+                I specialize in scalable systems - from microservices architecture to ML pipelines.
                 <br />
                 Open source contributor. Problem solver. Lifelong learner.
               </div>
             </TerminalLine>
 
             {/* Skills Section */}
-            <SectionHeader delay={TIMING.skillsHeader}>Skills</SectionHeader>
-
-            <CommandLine command={CMD_SKILLS} delay={TIMING.skillsCmd} typingSpeed={TYPING_SPEED} />
+            <CommandLine command={CMD_SKILLS} delay={TIMING.skillsCmd} typingDelay={TIMING.skillsTypingDelay} typingSpeed={TYPING_SPEED} cursorUntil={TIMING.skillsOutput} />
 
             <TerminalLine delay={TIMING.skillsOutput}>
               <div className="command-output flex flex-wrap gap-1 mt-2">
@@ -372,11 +568,9 @@ const App = () => {
             </TerminalLine>
 
             {/* Projects Section */}
-            <SectionHeader delay={TIMING.projectsHeader}>Projects</SectionHeader>
+            <CommandLine command={CMD_PROJECTS} delay={TIMING.projectsCmd} typingDelay={TIMING.projectsTypingDelay} typingSpeed={TYPING_SPEED} cursorUntil={TIMING.projectsOutput} />
 
-            <CommandLine command={CMD_PROJECTS} delay={TIMING.projectsCmd} typingSpeed={TYPING_SPEED} />
-
-            <div className="command-output">
+            <div className="command-output grid grid-cols-2 gap-x-6 gap-y-1">
               {projects.map((project, index) => (
                 <ProjectEntry
                   key={project.name}
@@ -395,7 +589,7 @@ const App = () => {
             </div>
 
             {/* Connect Section */}
-            <SectionHeader delay={TIMING.connectHeader}>Connect</SectionHeader>
+            <CommandLine command={CMD_CONNECT} delay={TIMING.connectCmd} typingDelay={TIMING.connectTypingDelay} typingSpeed={TYPING_SPEED} cursorUntil={TIMING.connectOutput} />
 
             <TerminalLine delay={TIMING.connectOutput}>
               <div className="command-output flex gap-6">
@@ -436,7 +630,22 @@ const App = () => {
               </TerminalLine>
             )}
 
-            {/* Final command prompt with blinking cursor */}
+            {/* User command history */}
+            {commandHistory.map((cmd, index) => (
+              <div key={index} className="mb-1">
+                <span className="prompt">
+                  <span className="prompt-user">lior</span>
+                  <span className="prompt-at">@</span>
+                  <span className="prompt-host">dev</span>
+                  <span className="prompt-at">:</span>
+                  <span className="prompt-path">~</span>
+                  <span className="prompt-symbol">$</span>
+                </span>{" "}
+                <span className="text-[#e4e4e7]">{cmd}</span>
+              </div>
+            ))}
+
+            {/* Final command prompt with interactive input */}
             <TerminalLine delay={TIMING.cursor}>
               <div className="mt-6">
                 <span className="prompt">
@@ -447,7 +656,22 @@ const App = () => {
                   <span className="prompt-path">~</span>
                   <span className="prompt-symbol">$</span>
                 </span>{" "}
-                {animationComplete && <span className="cursor" />}
+                {animationComplete && (
+                  <>
+                    <span className="text-[#e4e4e7]">{userInput}</span>
+                    <span className="cursor" />
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={userInput}
+                      onChange={handleInputChange}
+                      onKeyDown={handleKeyDown}
+                      className="terminal-input"
+                      autoComplete="off"
+                      spellCheck={false}
+                    />
+                  </>
+                )}
               </div>
             </TerminalLine>
           </div>
@@ -455,6 +679,7 @@ const App = () => {
           {/* Terminal Footer */}
           <div className={`terminal-footer ${isMinimized ? "terminal-footer-minimized" : ""}`}>
             <span>PID: 1337</span>
+            <span>CPU: 3.14%</span>
             <span>MEM: 42.0%</span>
             <span>
               {currentDate} {currentTime}
