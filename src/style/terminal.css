@@ -223,6 +223,13 @@
 	.terminal-body {
 		padding: 16px;
 	}
+
+	.terminal-footer {
+		flex-wrap: wrap;
+		gap: 4px 16px;
+		justify-content: flex-start;
+		padding: 12px 16px;
+	}
 }
 
 @media print {
