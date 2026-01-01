@@ -392,7 +392,7 @@ const App = () => {
 								cursorUntil={TIMING.projectsOutput}
 							/>
 
-							<div className="command-output grid grid-cols-2 gap-x-6 gap-y-1">
+							<div className="command-output grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
 								{projects.map((project, index) => (
 									<ProjectEntry
 										key={project.name}
