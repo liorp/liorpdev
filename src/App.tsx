@@ -43,6 +43,7 @@ const App = () => {
   const [userInput, setUserInput] = useState("");
   const [commandHistory, setCommandHistory] = useState<HistoryEntry[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [footerTime, setFooterTime] = useState(new Date());
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
@@ -167,6 +168,11 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => setFooterTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "short",
     year: "numeric",
@@ -177,6 +183,7 @@ const App = () => {
   const currentTime = new Date().toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
   });
 
   return (
@@ -430,10 +437,15 @@ const App = () => {
 
             <div className={`terminal-footer ${isMinimized ? "terminal-footer-minimized" : ""}`}>
               <span>PID: 1337</span>
-              <span>CPU: 3.14%</span>
-              <span>MEM: 42.0%</span>
+              <span className="usage-bar">
+                <span className="usage-label">CPU</span>[<span className="bar-fill">|</span><span className="bar-empty">---------</span>]<span className="usage-pct">3.1%</span>
+              </span>
+              <span className="usage-bar">
+                <span className="usage-label">MEM</span>[<span className="bar-fill">||||</span><span className="bar-empty">------</span>]<span className="usage-pct">42%</span>
+              </span>
               <span>
-                {currentDate} {currentTime}
+                {footerTime.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}{" "}
+                {footerTime.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
               </span>
             </div>
           </div>

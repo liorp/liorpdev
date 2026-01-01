@@ -166,6 +166,30 @@
   animation: none !important;
 }
 
+.usage-bar {
+  display: inline-flex;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.usage-label {
+  margin-right: 2px;
+}
+
+.bar-fill {
+  color: var(--term-green);
+}
+
+.bar-empty {
+  color: #333;
+}
+
+.usage-pct {
+  margin-left: 4px;
+  min-width: 4ch;
+  text-align: right;
+}
+
 @media (max-width: 768px) {
   .ascii-art {
     font-size: 6px;
