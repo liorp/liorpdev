@@ -1,10 +1,10 @@
 export { MatrixRain } from "./MatrixRain";
 export {
-  TerminalLine,
-  Prompt,
-  CommandLine,
-  AsciiArt,
-  ProjectEntry,
-  SkillTag,
-  SectionHeader,
+	AsciiArt,
+	CommandLine,
+	ProjectEntry,
+	Prompt,
+	SectionHeader,
+	SkillTag,
+	TerminalLine,
 } from "./Terminal";

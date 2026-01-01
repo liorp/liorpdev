@@ -1,15 +1,15 @@
 :root {
-  --term-green: #00ff41;
-  --term-green-dim: #00cc33;
-  --term-green-glow: rgba(0, 255, 65, 0.4);
-  --term-amber: #ffb000;
-  --term-amber-dim: #cc8c00;
-  --term-amber-glow: rgba(255, 176, 0, 0.3);
-  --term-cyan: #00ffff;
-  --term-red: #ff3333;
-  --term-bg: #0a0a0a;
-  --term-bg-light: #111111;
-  --term-border: #1a1a1a;
-  --scanline-opacity: 0.03;
-  --crt-curve: 2px;
+	--term-green: #00ff41;
+	--term-green-dim: #00cc33;
+	--term-green-glow: rgba(0, 255, 65, 0.4);
+	--term-amber: #ffb000;
+	--term-amber-dim: #cc8c00;
+	--term-amber-glow: rgba(255, 176, 0, 0.3);
+	--term-cyan: #00ffff;
+	--term-red: #ff3333;
+	--term-bg: #0a0a0a;
+	--term-bg-light: #111111;
+	--term-border: #1a1a1a;
+	--scanline-opacity: 0.03;
+	--crt-curve: 2px;
 }
