@@ -7,7 +7,7 @@ export type Project = {
 export const projects: Project[] = [
 	{
 		name: "agent-course",
-		description: "AI agent development course - hands-on building with LLMs",
+		description: "AI agent harness development - hands-on building with LLMs",
 		url: "https://agent-course.liorp.dev/",
 	},
 	{
